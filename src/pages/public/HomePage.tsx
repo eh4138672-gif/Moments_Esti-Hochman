@@ -4,6 +4,7 @@ import { usePackages } from "../../hooks/usePackages";
 import { CATEGORIES, categoryLabels } from "../../utils/statusLabels";
 import type { GalleryItem } from "../../types/gallery";
 import PackageCard from "../../components/packages/PackageCard";
+import PhotoStack from "../../components/gallery/PhotoStack";
 import StatusBadge from "../../components/ui/StatusBadge";
 import { Skeleton } from "../../components/ui/Loader";
 
@@ -29,13 +30,11 @@ function HomePage() {
   return (
     <div className="space-y-28">
       {/* ---------- 1. Hero ---------- */}
-      <section className="relative -mt-4 overflow-hidden rounded-[2.5rem] border border-line bg-gradient-to-br from-sun/25 via-rose/15 to-violet/25">
-        {photos?.[0] && <img src={photos[0].url} alt="" className="absolute inset-0 size-full object-cover opacity-40" />}
-        <div className="absolute inset-0 bg-gradient-to-l from-ink/95 via-ink/70 to-ink/10" />
-
-        <div className="relative max-w-2xl px-8 py-24 md:px-14 md:py-32">
+      {/* טקסט מימין, ערימת תמונות משמאל (במסך רחב). בטלפון – רק הטקסט */}
+      <section className="relative -mt-4 grid items-center overflow-hidden rounded-[2.5rem] border border-line bg-gradient-to-br from-sun/15 via-rose/10 to-violet/20 md:grid-cols-2">
+        <div className="relative px-8 py-20 md:py-28 md:ps-14">
           <span className="rounded-full border border-cream/30 px-4 py-1.5 text-sm">סטודיו לצילום ילדים ומשפחה</span>
-          <h1 className="mt-6 text-5xl font-extrabold leading-tight md:text-7xl">
+          <h1 className="mt-6 text-5xl font-extrabold leading-tight xl:text-6xl">
             רגעים קטנים,
             <br />
             <span className={gradientText}>זיכרונות גדולים.</span>
@@ -51,6 +50,10 @@ function HomePage() {
               לחבילות הצילום
             </Link>
           </div>
+        </div>
+
+        <div className="hidden px-8 md:block">
+          <PhotoStack photos={photos?.slice(0, 4) ?? []} />
         </div>
       </section>
 

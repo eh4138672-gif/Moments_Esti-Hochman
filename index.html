@@ -15,6 +15,13 @@
       tailwind.config = {
         theme: {
           extend: {
+            // "ריחוף" עדין למעלה ולמטה – לתמונות בערימה שבדף הבית (animate-float)
+            keyframes: {
+              float: { "0%, 100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-12px)" } },
+            },
+            animation: {
+              float: "float 6s ease-in-out infinite",
+            },
             colors: {
               ink: "#1b1a1f", // רקע האתר
               card: "#24232a", // כרטיסים, סרגלים
