@@ -1,7 +1,8 @@
 import { Link } from "react-router";
 import { useGallery } from "../../hooks/useGallery";
 import { usePackages } from "../../hooks/usePackages";
-import { categoryLabels } from "../../utils/statusLabels";
+import { CATEGORIES, categoryLabels } from "../../utils/statusLabels";
+import type { GalleryItem } from "../../types/gallery";
 import PackageCard from "../../components/packages/PackageCard";
 import StatusBadge from "../../components/ui/StatusBadge";
 import { Skeleton } from "../../components/ui/Loader";
@@ -17,7 +18,12 @@ const STEPS = [
 const gradientText = "bg-gradient-to-l from-sky via-rose to-sun bg-clip-text text-transparent";
 // דף הבית – פתוח לכולם
 function HomePage() {
-  const { data: photos, isPending: photosLoading } = useGallery(undefined, 5); // 5 עבודות נבחרות
+  const { data: photos, isPending: photosLoading } = useGallery(); // כל הגלריה (החדשות קודם)
+
+  // עבודה אחת מכל קטגוריה – החדשה ביותר בה. קטגוריה בלי תמונות פשוט לא מוצגת
+  const featured = CATEGORIES.map((category) => photos?.find((photo) => photo.category === category)).filter(
+    (photo): photo is GalleryItem => photo !== undefined,
+  );
   const { data: packages, isPending: packagesLoading } = usePackages();
 
   return (
@@ -54,15 +60,16 @@ function HomePage() {
         <p className="bg-gradient-to-l from-berry to-rose bg-clip-text font-display text-5xl font-extrabold text-transparent md:text-7xl">MOMENTS</p>
         <p className="mx-auto mt-4 max-w-lg text-muted">גלריה פתוחה לכולם – ללא צורך בהתחברות. עיינו לפי קטגוריות: תינוקות, גיל שנה, חלאקה, משפחה ואלבומים.</p>
 
-        <div className="mt-12 grid grid-cols-2 items-end gap-4 md:grid-cols-5">
+        {/* flex + justify-center: גם אם יש פחות מ־5 קטגוריות עם תמונות, הן נשארות במרכז */}
+        <div className="mt-12 flex flex-wrap justify-center gap-4">
           {photosLoading
-            ? Array.from({ length: 5 }, (_, i) => <Skeleton key={i} className="h-72" />)
-            : photos?.map((photo) => (
+            ? Array.from({ length: 5 }, (_, i) => <Skeleton key={i} className="h-80 w-[calc(50%-0.5rem)] md:w-[calc(20%-0.8rem)]" />)
+            : featured.map((photo) => (
                 <Link
                   key={photo.id}
                   to={`/gallery?category=${photo.category}`}
                   // מלבן עם פינות מעוגלות. במעבר עכבר – קופץ קצת למעלה והתמונה מתקרבת
-                  className="group relative h-80 overflow-hidden rounded-3xl bg-gradient-to-br from-sun/30 via-rose/20 to-violet/30 transition duration-500 hover:-translate-y-2"
+                  className="group relative h-80 w-[calc(50%-0.5rem)] overflow-hidden rounded-3xl bg-gradient-to-br from-sun/30 via-rose/20 to-violet/30 transition duration-500 hover:-translate-y-2 md:w-[calc(20%-0.8rem)]"
                 >
                   <img src={photo.url} alt={photo.title} className="size-full object-cover transition duration-500 group-hover:scale-105" />
                   <span className="absolute bottom-4 end-4 rounded-full bg-ink/80 px-4 py-1 text-sm font-bold">
