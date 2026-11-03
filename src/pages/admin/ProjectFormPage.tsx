@@ -13,9 +13,9 @@ import EmptyState from "../../components/ui/EmptyState";
 // היום בפורמט "YYYY-MM-DD" – ברירת המחדל לתאריך בפרויקט חדש
 const today = new Date().toLocaleDateString("en-CA");
 
-// הערכים מהטופס → מה שהשרת מצפה לקבל (הערה ריקה נשלחת כ־null)
+// הערכים מהטופס → מה שהשרת מצפה לקבל (הערה או קישור ריקים נשלחים כ־null)
 function toInput(values: ProjectFormValues): ProjectInput {
-  return { ...values, notes: values.notes.trim() || null };
+  return { ...values, notes: values.notes.trim() || null, downloadLink: values.downloadLink || null };
 }
 
 // /admin/projects/new ו־/admin/projects/:id/edit – אותו דף
@@ -89,8 +89,9 @@ function ProjectFormPage() {
                 shootDate: project.shootDate,
                 cost: project.cost,
                 notes: project.notes ?? "",
+                downloadLink: project.downloadLink ?? "",
               }
-            : { clientName: "", clientEmail: "", workStatus: "Photographed", albumStatus: "None", shootDate: today, notes: "" }
+            : { clientName: "", clientEmail: "", workStatus: "Photographed", albumStatus: "None", shootDate: today, notes: "", downloadLink: "" }
         }
       />
     </div>

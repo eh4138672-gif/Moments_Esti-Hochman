@@ -131,6 +131,16 @@ function ProjectForm({ defaultValues, packages, submitLabel, onSubmit, sidebar }
           <FormField label="עלות (₪) *" type="number" min={0} placeholder="0" registration={register("cost", { valueAsNumber: true })} error={errors.cost} />
         </div>
 
+        {/* התמונות המלאות כבדות מדי להעלאה – שולחים ללקוח קישור להורדה (ג׳מבו, Google Drive וכו') */}
+        <FormField
+          label="קישור להורדת התמונות המלאות (ג׳מבו)"
+          type="url"
+          dir="ltr"
+          placeholder="https://..."
+          registration={register("downloadLink")}
+          error={errors.downloadLink}
+        />
+
         <label className="block">
           <span className="mb-2 block text-sm font-bold">הערות פנימיות (רק המנהלת רואה)</span>
           <textarea

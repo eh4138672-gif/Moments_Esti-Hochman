@@ -12,6 +12,12 @@ export const projectSchema = z.object({
   // valueAsNumber: שדה ריק הופך ל־NaN – ו־zod מחזיר "שדה חובה"
   cost: z.number({ invalid_type_error: "שדה חובה" }).min(0, "העלות לא יכולה להיות שלילית").max(1_000_000, "העלות גבוהה מדי"),
   notes: z.string().max(500, "עד 500 תווים"),
+  // אופציונלי: או קישור שמתחיל ב־https:// או שדה ריק
+  downloadLink: z
+    .string()
+    .trim()
+    .max(500, "הקישור ארוך מדי")
+    .refine((v) => v === "" || /^https?:\/\/\S+$/i.test(v), "קישור לא תקין – צריך להתחיל ב־https://"),
 });
 
 export type ProjectFormValues = z.infer<typeof projectSchema>;

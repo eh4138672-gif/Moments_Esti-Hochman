@@ -81,7 +81,20 @@ function ProjectPage() {
 
       {/* התמונות מהצילום */}
       <section>
-        <h2 className="mb-6 text-3xl font-extrabold">מהצילום שלכם</h2>
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+          <h2 className="text-3xl font-extrabold">מהצילום שלכם</h2>
+          {/* <a> ולא Link – הקישור מוביל לאתר אחר (ג׳מבו), ונפתח בלשונית חדשה */}
+          {project.downloadLink && (
+            <a
+              href={project.downloadLink}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full bg-gradient-to-l from-berry to-sun px-7 py-3 font-bold text-ink transition hover:opacity-90"
+            >
+              ⬇ להורדת כל התמונות
+            </a>
+          )}
+        </div>
         {project.photos.length > 0 ? (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {project.photos.map((photo) => (

@@ -21,6 +21,7 @@ export interface Project {
   shootDate: string; // "YYYY-MM-DD"
   cost: number;
   coverImageUrl: string | null; // null = אין עדיין תמונות
+  downloadLink: string | null; // קישור לתמונות המלאות (למשל ג׳מבו). null = אין
   notes?: string | null; // מגיע רק למנהלת – אצל לקוח השדה לא קיים
   createdAt: string;
   updatedAt: string;
@@ -48,6 +49,7 @@ export interface ProjectInput {
   albumStatus?: AlbumStatus; // ברירת מחדל בשרת: None
   cost?: number | null; // אם לא נשלח – מחיר החבילה
   notes?: string | null;
+  downloadLink?: string | null; // ריק / null = בלי קישור
 }
 
 // עדכון סטטוס מהיר (PATCH) – לפחות אחד מהשניים
