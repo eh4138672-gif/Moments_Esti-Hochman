@@ -4,6 +4,14 @@ import ComparisonTable from "../../components/packages/ComparisonTable";
 import { Skeleton } from "../../components/ui/Loader";
 import ErrorMessage from "../../components/ui/ErrorMessage";
 
+// מהמחירון של הסטודיו
+const EXTRA_INFO = [
+  { icon: "☀️", text: "הצילומים מתקיימים בשעות הזהב, לפני השקיעה, לקבלת התאורה המחמיאה ביותר." },
+  { icon: "📖", text: "ניתן להוסיף אלבום דיגיטלי מעוצב בתוספת תשלום." },
+  { icon: "🎨", text: "התמונות המעובדות נבחרות על ידיכם מתוך גלריה אישית." },
+  { icon: "🚗", text: "נסיעות על חשבון הלקוח." },
+];
+
 // /packages – שתי החבילות + טבלת השוואה. פתוח לכולם
 function PackagesPage() {
   const { data: packages, isPending, isError, error, refetch } = usePackages();
@@ -35,6 +43,19 @@ function PackagesPage() {
           <section>
             <h2 className="mb-6 text-3xl font-extrabold">השוואה במבט אחד</h2>
             <ComparisonTable packages={packages} />
+          </section>
+
+          {/* "מידע נוסף" מהמחירון של הסטודיו – טקסט קבוע, לא מהשרת */}
+          <section className="rounded-[2rem] border border-line bg-card p-8">
+            <h2 className="text-2xl font-extrabold">מידע נוסף</h2>
+            <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+              {EXTRA_INFO.map((item) => (
+                <li key={item.text} className="flex items-start gap-3">
+                  <span className="text-xl">{item.icon}</span>
+                  <span className="text-cream/80">{item.text}</span>
+                </li>
+              ))}
+            </ul>
           </section>
         </>
       )}
