@@ -4,7 +4,7 @@ import { z } from "zod";
 export const projectSchema = z.object({
   clientName: z.string().trim().min(2, "לפחות 2 תווים").max(60, "עד 60 תווים"),
   clientEmail: z.string().trim().min(1, "שדה חובה").email("כתובת אימייל לא תקינה"),
-  category: z.enum(["Babies", "Kids", "Family", "Nature", "Styling"], { errorMap: () => ({ message: "יש לבחור קטגוריה" }) }),
+  category: z.enum(["Babies", "FirstBirthday", "Upsherin", "Family"], { errorMap: () => ({ message: "יש לבחור קטגוריה" }) }),
   packageId: z.number({ errorMap: () => ({ message: "יש לבחור חבילה" }) }).int().positive("יש לבחור חבילה"),
   workStatus: z.enum(["Photographed", "Editing", "Completed", "Delivered"]),
   albumStatus: z.enum(["None", "SelectingPhotos", "Designing", "Ready"]),

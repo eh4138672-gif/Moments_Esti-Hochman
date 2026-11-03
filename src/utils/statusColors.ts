@@ -3,10 +3,9 @@ import type { AlbumStatus, Category, WorkStatus } from "../types/project";
 // צבע הטקסט של כל קטגוריה (בכרטיסי הפרויקטים ובגלריה)
 export const categoryColors: Record<Category, string> = {
   Babies: "text-rose",
-  Kids: "text-sun",
+  FirstBirthday: "text-sun",
+  Upsherin: "text-sky",
   Family: "text-violet",
-  Nature: "text-sky",
-  Styling: "text-berry",
 };
 
 // צבע לכל שלב, כמו בהדמיה. מחרוזות מלאות (ולא `border-${color}`) כדי ש־Tailwind יזהה אותן

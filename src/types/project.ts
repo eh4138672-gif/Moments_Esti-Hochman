@@ -1,7 +1,7 @@
 import type { PackageTier } from "./package";
 
 // ערכי הבחירה – בדיוק כמו בשרת (באנגלית). התרגום לעברית נמצא ב־utils/statusLabels.ts
-export type Category = "Babies" | "Kids" | "Family" | "Nature" | "Styling";
+export type Category = "Babies" | "FirstBirthday" | "Upsherin" | "Family";
 export type WorkStatus = "Photographed" | "Editing" | "Completed" | "Delivered";
 export type AlbumStatus = "None" | "SelectingPhotos" | "Designing" | "Ready";
 

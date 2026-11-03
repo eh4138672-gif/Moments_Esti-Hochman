@@ -16,7 +16,7 @@ import ConfirmDialog from "../../components/ui/ConfirmDialog";
 
 const SORT_FIELDS = ["shootDate", "cost", "clientName", "createdAt"];
 
-// קורא את הסינונים מהכתובת: ?category=Kids&sortBy=cost → { category: "Kids", sortBy: "cost" }
+// קורא את הסינונים מהכתובת: ?category=Family&sortBy=cost → { category: "Family", sortBy: "cost" }
 // ערך לא מוכר (מישהו שינה את הכתובת ידנית) פשוט לא נכנס
 function readFilters(params: URLSearchParams): Filters {
   const pick = <T extends string>(key: string, allowed: readonly string[]) => {

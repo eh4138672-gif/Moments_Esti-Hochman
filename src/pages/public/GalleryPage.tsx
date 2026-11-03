@@ -10,7 +10,7 @@ import EmptyState from "../../components/ui/EmptyState";
 
 // /gallery – גלריית העבודות, פתוחה לכולם
 function GalleryPage() {
-  // הקטגוריה נשמרת בכתובת (?category=Kids) – כך הקישורים מדף הבית פותחים ישר את הקטגוריה הנכונה
+  // הקטגוריה נשמרת בכתובת (?category=Family) – כך הקישורים מדף הבית פותחים ישר את הקטגוריה הנכונה
   const [searchParams, setSearchParams] = useSearchParams();
   const param = searchParams.get("category");
   const category = CATEGORIES.includes(param as Category) ? (param as Category) : undefined;

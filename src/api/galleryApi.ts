@@ -2,7 +2,7 @@ import { axiosClient } from "./axiosClient";
 import type { GalleryItem } from "../types/gallery";
 import type { Category } from "../types/project";
 
-// GET /gallery?category=Kids&limit=5 → תמונות הגלריה (פתוח לכולם)
+// GET /gallery?category=Family&limit=5 → תמונות הגלריה (פתוח לכולם)
 // בלי category = כל התמונות. limit = כמה להחזיר (למשל 5 לדף הבית).
 export async function getGallery(category?: Category, limit?: number): Promise<GalleryItem[]> {
   // axios מדלג לבד על פרמטרים שהם undefined – אז לא נשלח "category=" ריק

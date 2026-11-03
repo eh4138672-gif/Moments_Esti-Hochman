@@ -6,10 +6,9 @@ import type { PackageTier } from "../types/package";
 
 export const categoryLabels: Record<Category, string> = {
   Babies: "תינוקות",
-  Kids: "ילדים",
+  FirstBirthday: "גיל שנה",
+  Upsherin: "חלאקה",
   Family: "משפחה",
-  Nature: "טבע",
-  Styling: "סטיילינג",
 };
 
 export const workStatusLabels: Record<WorkStatus, string> = {
@@ -32,6 +31,6 @@ export const packageTierLabels: Record<PackageTier, string> = {
 };
 
 // סדר השלבים – בשביל ה־StatusStepper ובשביל רשימות בחירה (Pill / select)
-export const CATEGORIES: Category[] = ["Babies", "Kids", "Family", "Nature", "Styling"];
+export const CATEGORIES: Category[] = ["Babies", "FirstBirthday", "Upsherin", "Family"];
 export const WORK_STATUS_STEPS: WorkStatus[] = ["Photographed", "Editing", "Completed", "Delivered"];
 export const ALBUM_STATUS_STEPS: AlbumStatus[] = ["None", "SelectingPhotos", "Designing", "Ready"];
