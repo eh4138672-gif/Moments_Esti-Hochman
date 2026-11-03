@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import type { Package } from "../../types/package";
 import { formatPrice } from "../../utils/formatPrice";
+import CameraSlideshow from "./CameraSlideshow";
 
 interface PackageCardProps {
   pkg: Package;
@@ -20,7 +21,12 @@ function PackageCard({ pkg, showFeatures = false }: PackageCardProps) {
       )}
 
       <div className="aspect-[2/1] bg-gradient-to-br from-sun/30 via-rose/20 to-violet/30">
-        {pkg.imageUrl && <img src={pkg.imageUrl} alt={pkg.name} className="size-full object-cover" />}
+        {/* אם לחבילה יש תמונה בשרת – מציגים אותה. אחרת: מצלמה עם תמונות מתחלפות מהגלריה */}
+        {pkg.imageUrl ? (
+          <img src={pkg.imageUrl} alt={pkg.name} className="size-full object-cover" />
+        ) : (
+          <CameraSlideshow startAt={isPremium ? 1 : 0} />
+        )}
       </div>
 
       <div className="flex flex-1 flex-col gap-4 p-8">
