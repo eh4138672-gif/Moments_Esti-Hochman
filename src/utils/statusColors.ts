@@ -6,6 +6,7 @@ export const categoryColors: Record<Category, string> = {
   FirstBirthday: "text-sun",
   Upsherin: "text-sky",
   Family: "text-violet",
+  Albums: "text-berry",
 };
 
 // צבע לכל שלב, כמו בהדמיה. מחרוזות מלאות (ולא `border-${color}`) כדי ש־Tailwind יזהה אותן

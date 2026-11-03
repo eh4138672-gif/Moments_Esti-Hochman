@@ -9,6 +9,7 @@ export const categoryLabels: Record<Category, string> = {
   FirstBirthday: "גיל שנה",
   Upsherin: "חלאקה",
   Family: "משפחה",
+  Albums: "אלבומים",
 };
 
 export const workStatusLabels: Record<WorkStatus, string> = {
@@ -31,6 +32,6 @@ export const packageTierLabels: Record<PackageTier, string> = {
 };
 
 // סדר השלבים – בשביל ה־StatusStepper ובשביל רשימות בחירה (Pill / select)
-export const CATEGORIES: Category[] = ["Babies", "FirstBirthday", "Upsherin", "Family"];
+export const CATEGORIES: Category[] = ["Babies", "FirstBirthday", "Upsherin", "Family", "Albums"];
 export const WORK_STATUS_STEPS: WorkStatus[] = ["Photographed", "Editing", "Completed", "Delivered"];
 export const ALBUM_STATUS_STEPS: AlbumStatus[] = ["None", "SelectingPhotos", "Designing", "Ready"];

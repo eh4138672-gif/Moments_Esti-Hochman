@@ -9,7 +9,7 @@ import { Skeleton } from "../../components/ui/Loader";
 // ארבעת השלבים של "איך זה עובד" – טקסט קבוע, לא מהשרת
 const STEPS = [
   { title: "כניסה לאתר", text: "עמוד בית פתוח לכולם, בלי צורך בהתחברות." },
-  { title: "גלריית עבודות", text: "תמונות לפי קטגוריות – תינוקות, גיל שנה, חלאקה ומשפחה." },
+  { title: "גלריית עבודות", text: "תמונות לפי קטגוריות – תינוקות, גיל שנה, חלאקה, משפחה ואלבומים." },
   { title: "בחירת חבילה", text: "חבילת בסיס או פרימיום עם אלבום, עוד לפני קביעת תאריך." },
   { title: "הרשמה והתחברות", text: "מעבר לאזור האישי אחרי סגירת הצילום." },
 ];
@@ -52,7 +52,7 @@ function HomePage() {
       <section className="text-center">
         <h2 className="font-display text-5xl font-extrabold md:text-7xl">PORTFOLIO</h2>
         <p className="bg-gradient-to-l from-berry to-rose bg-clip-text font-display text-5xl font-extrabold text-transparent md:text-7xl">MOMENTS</p>
-        <p className="mx-auto mt-4 max-w-lg text-muted">גלריה פתוחה לכולם – ללא צורך בהתחברות. עיינו לפי קטגוריות: תינוקות, גיל שנה, חלאקה ומשפחה.</p>
+        <p className="mx-auto mt-4 max-w-lg text-muted">גלריה פתוחה לכולם – ללא צורך בהתחברות. עיינו לפי קטגוריות: תינוקות, גיל שנה, חלאקה, משפחה ואלבומים.</p>
 
         <div className="mt-12 grid grid-cols-2 items-end gap-4 md:grid-cols-5">
           {photosLoading
