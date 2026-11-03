@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Unbounded:wght@700;800&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CSS 3.4.17 (קובץ מקומי מ־cdn.tailwindcss.com – npm חסום בנטפרי) -->
+    <script src="/vendor/tailwind-3.4.17.js"></script>
+    <script>
+      // צבעי וגופני העיצוב מההדמיה – כל צבע הופך ל־classes (למשל card → bg-card, text-card, border-card)
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              ink: "#1b1a1f", // רקע האתר
+              card: "#24232a", // כרטיסים, סרגלים
+              line: "#36353d", // מסגרות
+              cream: "#f3efe8", // טקסט ראשי
+              muted: "#a8a3a0", // טקסט משני
+              sun: "#ffc24b", // תחילת הגרדיאנט
+              rose: "#f0628a",
+              berry: "#d94fa0", // סוף הגרדיאנט של הכפתורים
+              violet: "#9b7bf0",
+              sky: "#3cc6e0",
+            },
+            fontFamily: {
+              sans: ["Heebo", "system-ui", "sans-serif"],
+              display: ["Unbounded", "Heebo", "sans-serif"], // כותרות באנגלית: PORTFOLIO, הלוגו
+            },
+          },
+        },
+      };
+    </script>
+    <title>moments · סטודיו לצילום ילדים ומשפחה</title>
+  </head>
+  <body class="bg-ink font-sans text-cream antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
