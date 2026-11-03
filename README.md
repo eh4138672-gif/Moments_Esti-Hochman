@@ -6,8 +6,11 @@
 
 | | קישור |
 |---|---|
-| 🌐 האתר החי | _יתווסף אחרי ההעלאה ל־Render_ |
-| 🔌 השרת (API) | [moments-backend](../moments-backend) · Swagger: `/api-docs` |
+| 🌐 האתר החי | https://moments-esti-hochman.onrender.com |
+| 🔌 השרת (API) | https://moments-api-1vth.onrender.com · [Swagger](https://moments-api-1vth.onrender.com/api-docs) |
+| 💻 קוד השרת | https://github.com/eh4138672-gif/Moments_Esti-Hochman_backend |
+
+> ⏰ האתר והשרת רצים במסלול החינמי של Render. אחרי זמן בלי שימוש השרת "נרדם", והבקשה הראשונה יכולה לקחת עד דקה.
 
 ---
 
@@ -19,7 +22,8 @@
 | לקוחה | dana@moments.test | Dana1234! | האזור האישי: 2 פרויקטים |
 | לקוח | yossi@moments.test | Yossi1234! | האזור האישי: פרויקט אחד |
 
-המשתמשים נוצרים ב־Seed של השרת, רק בסביבת פיתוח.
+המשתמשים נוצרים ב־Seed של השרת, רק בסביבת פיתוח (הרצה מקומית).
+באתר החי יש מנהלת אחת עם סיסמה פרטית, ואפשר להירשם כלקוח חדש דרך דף ההרשמה.
 
 ---
 
