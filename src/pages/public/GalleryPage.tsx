@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { useGallery } from "../../hooks/useGallery";
 import type { Category } from "../../types/project";
 import { CATEGORIES, categoryLabels } from "../../utils/statusLabels";
 import CategoryTabs from "../../components/gallery/CategoryTabs";
 import GalleryGrid from "../../components/gallery/GalleryGrid";
+import Lightbox from "../../components/gallery/Lightbox";
 import { Skeleton } from "../../components/ui/Loader";
 import ErrorMessage from "../../components/ui/ErrorMessage";
 import EmptyState from "../../components/ui/EmptyState";
@@ -14,8 +16,10 @@ function GalleryPage() {
   const category = CATEGORIES.includes(param as Category) ? (param as Category) : undefined;
 
   const { data: items, isPending, isError, error, refetch } = useGallery(category);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   function changeCategory(next?: Category) {
+    setOpenIndex(null);
     setSearchParams(next ? { category: next } : {}, { replace: true });
   }
 
@@ -42,7 +46,7 @@ function GalleryPage() {
           <p className="text-center text-muted">
             {items.length} תמונות בקטגוריה: {category ? categoryLabels[category] : "הכל"}
           </p>
-          <GalleryGrid items={items} />
+          <GalleryGrid items={items} onOpen={setOpenIndex} />
         </>
       )}
 
@@ -53,6 +57,10 @@ function GalleryPage() {
           לחבילות הצילום
         </Link>
       </section>
+
+      {openIndex !== null && items && (
+        <Lightbox items={items} index={openIndex} onChange={setOpenIndex} onClose={() => setOpenIndex(null)} />
+      )}
     </div>
   );
 }
