@@ -33,7 +33,7 @@ function Lightbox({ items, index, onChange, onClose }: LightboxProps) {
   if (!item) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0e0d11] p-4" onClick={onClose}>
       <button
         type="button"
         onClick={onClose}
@@ -76,7 +76,7 @@ function Lightbox({ items, index, onChange, onClose }: LightboxProps) {
           <span className="rounded-full bg-white/10 px-3 py-1 font-bold">{categoryLabels[item.category]}</span>
           <span>{item.title}</span>
           {hasMany && (
-            <span className="text-muted">
+            <span dir="ltr" className="text-muted">
               {index + 1} / {items.length}
             </span>
           )}
