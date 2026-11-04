@@ -4,7 +4,6 @@ import * as authApi from "../api/authApi";
 import { tokenStorage } from "../api/axiosClient";
 import type { LoginInput, RegisterInput } from "../types/user";
 
-
 interface AuthContextValue {
   user: User | null;
   isLoading: boolean;

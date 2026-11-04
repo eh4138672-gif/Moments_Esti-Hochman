@@ -19,14 +19,13 @@ import Pill from "../ui/Pill";
 import StatusBadge from "../ui/StatusBadge";
 
 interface ProjectFormProps {
-  defaultValues: DefaultValues<ProjectFormValues>; // ריק בהוספה, הפרויקט הקיים בעריכה
+  defaultValues: DefaultValues<ProjectFormValues>;
   packages: Package[];
   submitLabel: string;
-  onSubmit: (values: ProjectFormValues) => Promise<unknown>; // הדף מחליט אם זה POST או PUT
-  sidebar?: ReactNode; // תוכן נוסף בעמודת הצד, מתחת ל"תצוגת הלקוח" (בעריכה: העלאת תמונות)
+  onSubmit: (values: ProjectFormValues) => Promise<unknown>;
+  sidebar?: ReactNode;
 }
 
-// טופס אחד להוספה ולעריכה. הטופס לא יודע איזה מהשניים – הוא רק אוסף ובודק את השדות
 function ProjectForm({ defaultValues, packages, submitLabel, onSubmit, sidebar }: ProjectFormProps) {
   const {
     register,
@@ -38,13 +37,11 @@ function ProjectForm({ defaultValues, packages, submitLabel, onSubmit, sidebar }
     formState: { errors, isSubmitting },
   } = useForm<ProjectFormValues>({ resolver: zodResolver(projectSchema), defaultValues });
 
-  // watch – "מסתכל" על שדות ומרנדר מחדש כשהם משתנים (בשביל הנעילה ו"תצוגת הלקוח")
   const selectedPackage = packages.find((p) => p.id === watch("packageId"));
   const hasAlbum = selectedPackage?.includesAlbum ?? false;
   const workStatus = watch("workStatus");
   const albumStatus = watch("albumStatus");
 
-  // בחירת חבילה: ממלאים את העלות לפי המחיר, ובחבילה בלי אלבום – נועלים את האלבום על "ללא אלבום"
   function choosePackage(pkg: Package) {
     setValue("packageId", pkg.id, { shouldValidate: true });
     setValue("cost", pkg.price, { shouldValidate: true });
@@ -55,7 +52,7 @@ function ProjectForm({ defaultValues, packages, submitLabel, onSubmit, sidebar }
     try {
       await onSubmit(values);
     } catch (error) {
-      applyServerErrors(error, setError); // שגיאות 400 מהשרת נכנסות ליד השדות
+      applyServerErrors(error, setError);
     }
   }
 
@@ -68,7 +65,6 @@ function ProjectForm({ defaultValues, packages, submitLabel, onSubmit, sidebar }
         </div>
         <p className="-mt-4 text-sm text-muted">לפי האימייל הפרויקט מקושר ללקוח – כשהוא יירשם, הפרויקט יופיע אצלו באזור האישי.</p>
 
-        {/* Controller – מחבר ל־react-hook-form שדה שאינו input רגיל (כאן: שורת כפתורי Pill) */}
         <PillGroup label="סוג צילומים / קטגוריה *" error={errors.category?.message}>
           <Controller
             control={control}
@@ -115,7 +111,6 @@ function ProjectForm({ defaultValues, packages, submitLabel, onSubmit, sidebar }
             render={({ field }) => (
               <>
                 {ALBUM_STATUS_STEPS.map((s) => (
-                  // בלי אלבום – רק "ללא אלבום" אפשרי, השאר מושבתים
                   <Pill key={s} active={field.value === s} disabled={!hasAlbum && s !== "None"} onClick={() => field.onChange(s)}>
                     {albumStatusLabels[s]}
                   </Pill>
@@ -127,11 +122,10 @@ function ProjectForm({ defaultValues, packages, submitLabel, onSubmit, sidebar }
 
         <div className="grid gap-5 sm:grid-cols-2">
           <FormField label="תאריך הצילום *" type="date" registration={register("shootDate")} error={errors.shootDate} className="[color-scheme:dark]" />
-          {/* valueAsNumber – השדה מחזיר מספר ולא טקסט, כמו שהשרת מצפה */}
+
           <FormField label="עלות (₪) *" type="number" min={0} placeholder="0" registration={register("cost", { valueAsNumber: true })} error={errors.cost} />
         </div>
 
-        {/* התמונות המלאות כבדות מדי להעלאה – שולחים ללקוח קישור להורדה (ג׳מבו, Google Drive וכו') */}
         <FormField
           label="קישור להורדת התמונות המלאות (ג׳מבו)"
           type="url"
@@ -160,7 +154,6 @@ function ProjectForm({ defaultValues, packages, submitLabel, onSubmit, sidebar }
       </form>
 
       <div className="space-y-6">
-        {/* "תצוגת הלקוח" – מתעדכנת חי בזמן שבוחרים סטטוס */}
         <aside className="rounded-[2rem] border border-line bg-card p-6">
           <h2 className="text-xl font-extrabold">תצוגת הלקוח</h2>
           <p className="mt-1 text-sm text-muted">כך יראו הסטטוסים באזור האישי.</p>
@@ -181,7 +174,6 @@ function ProjectForm({ defaultValues, packages, submitLabel, onSubmit, sidebar }
   );
 }
 
-// כותרת + שורת כפתורי Pill + הודעת שגיאה
 function PillGroup({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
   return (
     <fieldset>

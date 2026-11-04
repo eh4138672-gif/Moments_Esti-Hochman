@@ -9,14 +9,12 @@ interface ProjectCardProps {
   project: Project;
 }
 
-// כרטיס של פרויקט אחד באזור האישי. לחיצה → דף הפרויקט
 function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
       to={`/my-projects/${project.id}`}
       className="group overflow-hidden rounded-[2rem] border border-line bg-card transition hover:-translate-y-1 hover:border-rose/50"
     >
-      {/* תמונת הכרטיס – ואם עוד אין תמונות, רקע בגרדיאנט */}
       <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-sun/30 via-rose/20 to-violet/30">
         {project.coverImageUrl && (
           <img src={project.coverImageUrl} alt={project.clientName} className="size-full object-cover transition duration-500 group-hover:scale-105" />

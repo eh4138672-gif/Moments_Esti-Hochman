@@ -2,11 +2,9 @@ import { Link, NavLink, useNavigate } from "react-router";
 import { useAuth } from "../../hooks/useAuth";
 import Logo from "./Logo";
 
-// קישור בסרגל: ורוד כשהוא הדף הנוכחי. NavLink מעביר isActive לפונקציה
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   `transition hover:text-cream ${isActive ? "text-rose" : "text-cream/80"}`;
 
-// הסרגל העליון של האתר הפתוח – משתנה לפי מי שמחובר (אורח / לקוח / מנהלת)
 function Navbar() {
   const { user, isAdmin, logout } = useAuth();
   const navigate = useNavigate();
@@ -20,9 +18,7 @@ function Navbar() {
     <header className="sticky top-4 z-20 mx-auto mt-4 flex w-[calc(100%-2rem)] max-w-6xl flex-wrap items-center gap-x-4 gap-y-3 rounded-3xl border border-line bg-card/80 px-4 py-3 backdrop-blur md:gap-x-8 md:rounded-full md:px-6">
       <Logo />
 
-      {/* בטלפון: הקישורים בשורה משלהם מתחת ללוגו (order-last + basis-full) */}
       <nav className="order-last flex basis-full flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-medium md:order-none md:flex-1 md:basis-auto md:gap-x-8">
-        {/* end – "דף הבית" מסומן כפעיל רק ב־/ בדיוק, ולא בכל דף */}
         <NavLink to="/" end className={linkClass}>דף הבית</NavLink>
         <NavLink to="/gallery" className={linkClass}>גלריית עבודות</NavLink>
         <NavLink to="/packages" className={linkClass}>חבילות</NavLink>
@@ -36,7 +32,7 @@ function Navbar() {
       {user ? (
         <div className="ms-auto flex items-center gap-3 text-sm md:ms-0">
           <span className="hidden text-muted sm:inline">שלום, {user.fullName}</span>
-          {/* עיגול עם האות הראשונה של השם, כמו בהדמיה */}
+
           <span className="grid size-9 place-items-center rounded-full bg-gradient-to-l from-sun to-berry font-bold text-ink">
             {user.fullName.charAt(0)}
           </span>

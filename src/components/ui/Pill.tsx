@@ -1,10 +1,9 @@
 import type { ButtonHTMLAttributes } from "react";
 
 interface PillProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  active?: boolean; // האם זו האפשרות שנבחרה
+  active?: boolean;
 }
 
-// כפתור בחירה מעוגל – טאבים בגלריה, ובחירת קטגוריה / חבילה / סטטוס בטופס
 function Pill({ active = false, className = "", children, ...rest }: PillProps) {
   return (
     <button

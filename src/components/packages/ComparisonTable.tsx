@@ -1,6 +1,5 @@
 import type { Package } from "../../types/package";
 
-// שורות ההשוואה. included – פונקציה שמחליטה לכל חבילה אם השורה כלולה בה
 const ROWS: { label: string; included: (pkg: Package) => boolean }[] = [
   { label: "צילום", included: () => true },
   { label: "עריכת תמונות", included: () => true },
@@ -14,7 +13,6 @@ interface ComparisonTableProps {
   packages: Package[];
 }
 
-// "השוואה במבט אחד" – עמודה לכל חבילה. מה שתלוי באלבום נקבע לפי includesAlbum מהשרת
 function ComparisonTable({ packages }: ComparisonTableProps) {
   return (
     <div className="overflow-x-auto rounded-[2rem] border border-line bg-card">

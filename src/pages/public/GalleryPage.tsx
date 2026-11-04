@@ -8,14 +8,11 @@ import { Skeleton } from "../../components/ui/Loader";
 import ErrorMessage from "../../components/ui/ErrorMessage";
 import EmptyState from "../../components/ui/EmptyState";
 
-// /gallery – גלריית העבודות, פתוחה לכולם
 function GalleryPage() {
-  // הקטגוריה נשמרת בכתובת (?category=Family) – כך הקישורים מדף הבית פותחים ישר את הקטגוריה הנכונה
   const [searchParams, setSearchParams] = useSearchParams();
   const param = searchParams.get("category");
   const category = CATEGORIES.includes(param as Category) ? (param as Category) : undefined;
 
-  // מפתח אחר לכל קטגוריה → מעבר בין טאבים מביא את התמונות מהשרת (GET /gallery?category=...)
   const { data: items, isPending, isError, error, refetch } = useGallery(category);
 
   function changeCategory(next?: Category) {
@@ -42,7 +39,6 @@ function GalleryPage() {
         <EmptyState title="אין עדיין תמונות בקטגוריה הזו" text="נסו קטגוריה אחרת, או חזרו בקרוב." />
       ) : (
         <>
-          {/* המונה מחושב מהתשובה – כמה תמונות חזרו */}
           <p className="text-center text-muted">
             {items.length} תמונות בקטגוריה: {category ? categoryLabels[category] : "הכל"}
           </p>

@@ -8,8 +8,6 @@ import {
 
 type StatusStepperProps = { kind: "work"; status: WorkStatus } | { kind: "album"; status: AlbumStatus };
 
-// כל השלבים בשורה, מחוברים בקו – כמו בהדמיה:
-// שלב שעבר = עיגול בגרדיאנט עם ✓ · השלב הנוכחי = עיגול ורוד עם נקודה · שלב שעוד לא הגיע = עיגול ריק
 function StatusStepper(props: StatusStepperProps) {
   const steps: string[] = props.kind === "work" ? WORK_STATUS_STEPS : ALBUM_STATUS_STEPS;
   const labels: Record<string, string> = props.kind === "work" ? workStatusLabels : albumStatusLabels;
@@ -23,7 +21,6 @@ function StatusStepper(props: StatusStepperProps) {
 
         return (
           <li key={step} className="relative flex flex-1 flex-col items-center gap-3 text-center">
-            {/* הקו שמחבר לשלב הקודם (לכל שלב חוץ מהראשון). צבעוני אם כבר הגענו לשלב הזה */}
             {index > 0 && (
               <span
                 className={`absolute top-5 start-[-50%] h-0.5 w-full ${

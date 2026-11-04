@@ -15,11 +15,9 @@ import ProjectFormPage from "../pages/admin/ProjectFormPage";
 import AdminGalleryPage from "../pages/admin/AdminGalleryPage";
 import NotFoundPage from "../pages/NotFoundPage";
 
-// כל הנתיבים של האפליקציה במקום אחד
 function AppRouter() {
   return (
     <Routes>
-      {/* האתר הפתוח + האזור האישי – עם Navbar ו־Footer */}
       <Route element={<SiteLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/gallery" element={<GalleryPage />} />
@@ -27,7 +25,6 @@ function AppRouter() {
         <Route path="/login" element={<AuthPage />} />
         <Route path="/register" element={<AuthPage />} />
 
-        {/* לקוח בלבד */}
         <Route element={<ProtectedRoute role="Client" />}>
           <Route path="/my-projects" element={<MyProjectsPage />} />
           <Route path="/my-projects/:id" element={<ProjectPage />} />
@@ -36,7 +33,6 @@ function AppRouter() {
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 
-      {/* ממשק הניהול – מנהלת בלבד, עם סרגל צד במקום Navbar */}
       <Route element={<ProtectedRoute role="Admin" />}>
         <Route element={<AdminLayout />}>
           <Route path="/admin" element={<Navigate to="/admin/projects" replace />} />

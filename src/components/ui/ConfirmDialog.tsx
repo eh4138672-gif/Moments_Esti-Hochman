@@ -3,30 +3,27 @@ import Button from "./Button";
 
 interface ConfirmDialogProps {
   open: boolean;
-  title: string; // למשל "למחוק את הפרויקט?"
+  title: string;
   message?: string;
   confirmLabel?: string;
-  isLoading?: boolean; // בזמן המחיקה – הכפתור ננעל עם ספינר
+  isLoading?: boolean;
   onConfirm: () => void;
   onCancel: () => void;
 }
 
-// חלון אישור לפני פעולה שאי אפשר לבטל (מחיקה)
 function ConfirmDialog({ open, title, message, confirmLabel = "מחיקה", isLoading = false, onConfirm, onCancel }: ConfirmDialogProps) {
-  // Escape סוגר את החלון
   useEffect(() => {
     if (!open) return;
     function handleKey(event: KeyboardEvent) {
       if (event.key === "Escape") onCancel();
     }
     window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey); // ניקוי כשהחלון נסגר
+    return () => window.removeEventListener("keydown", handleKey);
   }, [open, onCancel]);
 
   if (!open) return null;
 
   return (
-    // לחיצה על הרקע הכהה סוגרת; stopPropagation – לחיצה בתוך החלון לא "מגיעה" לרקע
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4 backdrop-blur-sm" onClick={onCancel}>
       <div
         role="dialog"

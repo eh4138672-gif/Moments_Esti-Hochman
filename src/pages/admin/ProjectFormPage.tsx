@@ -10,30 +10,25 @@ import PhotoUploader from "../../components/projects/PhotoUploader";
 import Loader from "../../components/ui/Loader";
 import EmptyState from "../../components/ui/EmptyState";
 
-// היום בפורמט "YYYY-MM-DD" – ברירת המחדל לתאריך בפרויקט חדש
 const today = new Date().toLocaleDateString("en-CA");
 
-// הערכים מהטופס → מה שהשרת מצפה לקבל (הערה או קישור ריקים נשלחים כ־null)
 function toInput(values: ProjectFormValues): ProjectInput {
   return { ...values, notes: values.notes.trim() || null, downloadLink: values.downloadLink || null };
 }
 
-// /admin/projects/new ו־/admin/projects/:id/edit – אותו דף
 function ProjectFormPage() {
   const { id } = useParams();
-  const isEdit = id !== undefined; // יש id בכתובת = עריכה
+  const isEdit = id !== undefined;
   const projectId = Number(id);
   const navigate = useNavigate();
 
   const { data: packages, isPending: packagesLoading } = usePackages();
-  // בהוספה projectId הוא NaN – ה־hook לא שולח בקשה בכלל (enabled ב־useProject)
   const { data: project, isPending: projectLoading, isError } = useProject(projectId);
 
   const createMutation = useCreateProject();
   const updateMutation = useUpdateProject();
   const { showToast } = useToast();
 
-  // שמירה: POST בהוספה, PUT בעריכה. mutateAsync – כדי שהטופס יוכל לתפוס שגיאה ולהציג אותה ליד השדה
   async function handleSubmit(values: ProjectFormValues) {
     const data = toInput(values);
     if (isEdit) await updateMutation.mutateAsync({ id: projectId, data });
@@ -62,12 +57,10 @@ function ProjectFormPage() {
       </header>
 
       <ProjectForm
-        // key – כשעוברים מפרויקט לפרויקט, הטופס נבנה מחדש עם הערכים החדשים
         key={project?.id ?? "new"}
         packages={packages ?? []}
         submitLabel={isEdit ? "שמירת שינויים" : "שמירת פרויקט"}
         onSubmit={handleSubmit}
-        // תמונות אפשר להעלות רק לפרויקט שכבר קיים (צריך id) – לכן רק בעריכה
         sidebar={
           isEdit && project ? (
             <PhotoUploader projectId={project.id} photos={project.photos} />

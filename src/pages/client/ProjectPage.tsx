@@ -15,23 +15,18 @@ const backLink = (
   </Link>
 );
 
-// /my-projects/:id – דף של פרויקט אחד
 function ProjectPage() {
-  // 1. המספר מהכתובת: /my-projects/3 → "3" → 3
   const { id } = useParams();
   const projectId = Number(id);
 
-  // 2. הבאת הפרויקט מהשרת
   const { data: project, isPending, isError, error, refetch } = useProject(projectId);
 
-  // 3. מצבים מיוחדים – כל אחד מחזיר תצוגה אחרת ולא ממשיך הלאה
   if (!Number.isInteger(projectId) || projectId <= 0) {
     return <EmptyState title="הפרויקט לא נמצא" action={backLink} />;
   }
 
   if (isError) {
     const { status, title } = getApiError(error);
-    // 403 = הפרויקט של לקוח אחר · 404 = אין פרויקט כזה. בשניהם אין טעם ב"נסו שוב"
     if (status === 403 || status === 404) {
       return <EmptyState title={status === 403 ? "אין לך הרשאה לצפות בפרויקט הזה" : title} action={backLink} />;
     }
@@ -42,12 +37,10 @@ function ProjectPage() {
     return <Loader text="טוען את הפרויקט..." />;
   }
 
-  // 4. מכאן project בטוח קיים – מציגים את הדף
   return (
     <div className="space-y-8">
       {backLink}
 
-      {/* תמונה ראשית עם הכותרת עליה */}
       <section className="relative h-80 overflow-hidden rounded-[2rem] bg-gradient-to-br from-sun/30 via-rose/20 to-violet/30">
         {project.coverImageUrl && <img src={project.coverImageUrl} alt={project.clientName} className="absolute inset-0 size-full object-cover" />}
         <div className="absolute inset-0 bg-gradient-to-t from-ink/90 to-transparent" />
@@ -57,7 +50,6 @@ function ProjectPage() {
         </div>
       </section>
 
-      {/* שורת הפרטים */}
       <dl className="grid gap-6 rounded-[2rem] border border-line bg-card p-8 sm:grid-cols-2 lg:grid-cols-4">
         <Detail label="סוג צילומים" value={categoryLabels[project.category]} />
         <Detail label="סוג חבילה" value={`${project.packageName} · ${project.includesAlbum ? "כולל אלבום" : "ללא אלבום"}`} />
@@ -65,7 +57,6 @@ function ProjectPage() {
         <Detail label="עלות" value={formatPrice(project.cost)} />
       </dl>
 
-      {/* שני ה־Stepper־ים. סטטוס אלבום מוצג רק אם החבילה כוללת אלבום */}
       <div className={`grid gap-6 ${project.includesAlbum ? "md:grid-cols-2" : ""}`}>
         <section className="rounded-[2rem] border border-line bg-card p-8">
           <h2 className="mb-8 text-2xl font-extrabold">סטטוס עבודה</h2>
@@ -79,11 +70,10 @@ function ProjectPage() {
         )}
       </div>
 
-      {/* התמונות מהצילום */}
       <section>
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <h2 className="text-3xl font-extrabold">מהצילום שלכם</h2>
-          {/* <a> ולא Link – הקישור מוביל לאתר אחר (ג׳מבו), ונפתח בלשונית חדשה */}
+
           {project.downloadLink && (
             <a
               href={project.downloadLink}
@@ -111,7 +101,6 @@ function ProjectPage() {
   );
 }
 
-// פריט אחד בשורת הפרטים: תווית קטנה + ערך מודגש
 function Detail({ label, value }: { label: string; value: string }) {
   return (
     <div>

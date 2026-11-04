@@ -15,12 +15,9 @@ interface ToastContextValue {
 // eslint-disable-next-line react-refresh/only-export-components
 export const ToastContext = createContext<ToastContextValue | null>(null);
 
-// הודעות קופצות קטנות ("הפרויקט נשמר ✓"). כל קומפוננטה קוראת ל־showToast דרך useToast,
-// וה־Provider מציג את ההודעות בתחתית המסך ומעלים כל אחת אחרי 3 שניות
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
-  // useCallback – אותה פונקציה בכל רינדור, כדי שאפשר יהיה להשתמש בה בתוך useEffect / mutations
   const showToast = useCallback((message: string, type: ToastType = "success") => {
     const id = Date.now() + Math.random();
     setToasts((current) => [...current, { id, message, type }]);
@@ -30,7 +27,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      {/* aria-live – קורא מסך מקריא הודעה חדשה בלי שצריך להגיע אליה */}
+
       <div aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-6 z-50 flex flex-col items-center gap-2 px-4">
         {toasts.map((toast) => (
           <p

@@ -3,11 +3,10 @@ import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
 interface FormFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  registration: UseFormRegisterReturn; // מה שחוזר מ־register("email")
-  error?: FieldError; // השגיאה של השדה (מ־zod או מהשרת דרך setError)
+  registration: UseFormRegisterReturn;
+  error?: FieldError;
 }
 
-// תווית + שדה + הודעת שגיאה מתחתיו – משמש בכל הטפסים
 function FormField({ label, registration, error, ...inputProps }: FormFieldProps) {
   return (
     <label className="block">

@@ -9,7 +9,7 @@ import FormField from "../ui/FormField";
 import Button from "../ui/Button";
 
 interface LoginFormProps {
-  onSuccess: (user: User) => void; // הדף מחליט לאן לנווט
+  onSuccess: (user: User) => void;
 }
 
 function LoginForm({ onSuccess }: LoginFormProps) {
@@ -21,13 +21,11 @@ function LoginForm({ onSuccess }: LoginFormProps) {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormValues>({ resolver: zodResolver(loginSchema) });
 
-  // נקרא רק אם zod אישר את כל השדות
   async function onSubmit(values: LoginFormValues) {
     try {
       const user = await login(values);
       onSuccess(user);
     } catch (error) {
-      // 401 = אימייל או סיסמה שגויים → הודעה כללית (השרת לא אומר איזה מהשניים, בכוונה)
       applyServerErrors(error, setError);
     }
   }

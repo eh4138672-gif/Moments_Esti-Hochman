@@ -2,11 +2,10 @@ import { getApiError } from "../../utils/apiError";
 import Button from "./Button";
 
 interface ErrorMessageProps {
-  error: unknown; // השגיאה כמו שהיא מגיעה מ־React Query (error)
-  onRetry?: () => void; // בדרך כלל refetch – אם יש, מוצג כפתור "נסו שוב"
+  error: unknown;
+  onRetry?: () => void;
 }
 
-// הודעת שגיאה כשטעינת מידע נכשלה. הטקסט מגיע מהשרת (title), או הודעה כללית
 function ErrorMessage({ error, onRetry }: ErrorMessageProps) {
   const { title } = getApiError(error);
 

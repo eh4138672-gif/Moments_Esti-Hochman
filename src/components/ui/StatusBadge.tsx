@@ -2,12 +2,10 @@ import type { AlbumStatus, WorkStatus } from "../../types/project";
 import { albumStatusLabels, workStatusLabels } from "../../utils/statusLabels";
 import { albumStatusColors, workStatusColors } from "../../utils/statusColors";
 
-// שני סוגים: סטטוס עבודה או סטטוס אלבום. TypeScript מוודא שהסטטוס מתאים לסוג
 type StatusBadgeProps =
   | { kind: "work"; status: WorkStatus; onClick?: () => void }
   | { kind: "album"; status: AlbumStatus; onClick?: () => void };
 
-// תגית צבעונית עם מסגרת. עם onClick היא הופכת לכפתור (לעדכון מהיר בטבלה)
 function StatusBadge(props: StatusBadgeProps) {
   const label = props.kind === "work" ? workStatusLabels[props.status] : albumStatusLabels[props.status];
   const color = props.kind === "work" ? workStatusColors[props.status] : albumStatusColors[props.status];

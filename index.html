@@ -8,14 +8,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Unbounded:wght@700;800&display=swap" rel="stylesheet" />
 
-    <!-- Tailwind CSS 3.4.17 (קובץ מקומי מ־cdn.tailwindcss.com – npm חסום בנטפרי) -->
     <script src="/vendor/tailwind-3.4.17.js"></script>
     <script>
-      // צבעי וגופני העיצוב מההדמיה – כל צבע הופך ל־classes (למשל card → bg-card, text-card, border-card)
       tailwind.config = {
         theme: {
           extend: {
-            // "ריחוף" עדין למעלה ולמטה – לתמונות בערימה שבדף הבית (animate-float)
             keyframes: {
               float: { "0%, 100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-12px)" } },
             },
@@ -23,20 +20,20 @@
               float: "float 6s ease-in-out infinite",
             },
             colors: {
-              ink: "#1b1a1f", // רקע האתר
-              card: "#24232a", // כרטיסים, סרגלים
-              line: "#36353d", // מסגרות
-              cream: "#f3efe8", // טקסט ראשי
-              muted: "#a8a3a0", // טקסט משני
-              sun: "#ffc24b", // תחילת הגרדיאנט
+              ink: "#1b1a1f",
+              card: "#24232a",
+              line: "#36353d",
+              cream: "#f3efe8",
+              muted: "#a8a3a0",
+              sun: "#ffc24b",
               rose: "#f0628a",
-              berry: "#d94fa0", // סוף הגרדיאנט של הכפתורים
+              berry: "#d94fa0",
               violet: "#9b7bf0",
               sky: "#3cc6e0",
             },
             fontFamily: {
               sans: ["Heebo", "system-ui", "sans-serif"],
-              display: ["Unbounded", "Heebo", "sans-serif"], // כותרות באנגלית: PORTFOLIO, הלוגו
+              display: ["Unbounded", "Heebo", "sans-serif"],
             },
           },
         },

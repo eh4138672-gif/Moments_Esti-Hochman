@@ -9,16 +9,15 @@ import Button from "../ui/Button";
 import ConfirmDialog from "../ui/ConfirmDialog";
 import { TrashIcon } from "../ui/icons";
 
-const MAX_FILES = 10; // השרת מקבל עד 10 תמונות בבקשה אחת
+const MAX_FILES = 10;
 
 interface PhotoUploaderProps {
   projectId: number;
-  photos: ProjectPhoto[]; // התמונות שכבר הועלו (מ־GET /projects/{id})
+  photos: ProjectPhoto[];
 }
 
-// "גלריית הפרויקט" בטופס העריכה: התמונות הקיימות (עם מחיקה) + העלאת חדשות
 function PhotoUploader({ projectId, photos }: PhotoUploaderProps) {
-  const [selected, setSelected] = useState<File[]>([]); // נבחרו אבל עוד לא הועלו
+  const [selected, setSelected] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [toDelete, setToDelete] = useState<ProjectPhoto | null>(null);
@@ -27,8 +26,6 @@ function PhotoUploader({ projectId, photos }: PhotoUploaderProps) {
   const deletePhoto = useDeleteProjectPhoto();
   const { showToast } = useToast();
 
-  // תצוגה מקדימה: URL.createObjectURL נותן כתובת זמנית לקובץ שעוד נמצא במחשב.
-  // כשהרשימה משתנה – משחררים את הכתובות הישנות (אחרת הן נשארות בזיכרון)
   useEffect(() => {
     const urls = selected.map((file) => URL.createObjectURL(file));
     setPreviews(urls);
@@ -53,7 +50,6 @@ function PhotoUploader({ projectId, photos }: PhotoUploaderProps) {
           showToast(`${uploaded.length} תמונות הועלו`);
           setSelected([]);
         },
-        // למשל 503 – מפתחות Cloudinary חסרים בשרת
         onError: (err) => setError(getApiError(err).title),
       },
     );

@@ -2,10 +2,9 @@ import type { GalleryItem } from "../../types/gallery";
 import { SparkleIcon } from "../ui/icons";
 
 interface PhotoStackProps {
-  photos: GalleryItem[]; // עד 4 תמונות מהגלריה (החדשות קודם)
+  photos: GalleryItem[];
 }
 
-// המיקום והזווית של כל תמונה בערימה. delay – כל אחת "מרחפת" בזמן אחר, כדי שלא יזוזו יחד
 const SLOTS = [
   { position: "left-[4%] top-[6%]", rotate: "-rotate-[8deg]", delay: "0s" },
   { position: "left-[40%] top-0", rotate: "rotate-[6deg]", delay: "1.5s" },
@@ -13,15 +12,12 @@ const SLOTS = [
   { position: "left-[48%] top-[40%]", rotate: "-rotate-[5deg]", delay: "4.5s" },
 ];
 
-// ערימת תמונות מוטות במסגרת לבנה, כמו תמונות מודפסות על שולחן.
-// אם אין עדיין תמונות בגלריה – מסגרות ריקות בגרדיאנט, כדי שהחלק הזה לא יישאר ריק
 function PhotoStack({ photos }: PhotoStackProps) {
   return (
     <div className="relative h-[26rem]">
       {SLOTS.map((slot, index) => {
         const photo = photos[index];
         return (
-          // החיצוני מרחף (animate-float), הפנימי מוטה – כך ה־transform של שניהם לא מתנגש
           <div key={index} className={`absolute ${slot.position} animate-float hover:z-20`} style={{ animationDelay: slot.delay }}>
             <figure
               className={`${slot.rotate} rounded-lg bg-cream p-2.5 pb-9 shadow-2xl shadow-black/50 transition duration-500 hover:rotate-0 hover:scale-110`}

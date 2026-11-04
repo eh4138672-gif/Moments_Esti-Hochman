@@ -1,5 +1,3 @@
-// אייקונים קטנים (הצורות מספריית Lucide, רישיון ISC) – SVG פשוט, הצבע לפי text-* של מי שעוטף
-// כש־npm ייפתח בנטפרי אפשר להחליף ב־import מ־"lucide-react"
 import type { ReactNode } from "react";
 
 interface IconProps {

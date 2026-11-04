@@ -5,11 +5,9 @@ import { Skeleton } from "../../components/ui/Loader";
 import ErrorMessage from "../../components/ui/ErrorMessage";
 import EmptyState from "../../components/ui/EmptyState";
 
-// /my-projects – האזור האישי של הלקוח
 function MyProjectsPage() {
   const { data: projects, isPending, isError, error, refetch } = useMyProjects();
 
-  // המונים מחושבים מתוך הרשימה – אין להם קריאה נפרדת לשרת
   const total = projects?.length ?? 0;
   const editing = projects?.filter((p) => p.workStatus === "Editing").length ?? 0;
 
@@ -69,7 +67,6 @@ function MyProjectsPage() {
   );
 }
 
-// קופסת מונה קטנה: מספר גדול + תווית
 function Counter({ value, label }: { value: number; label: string }) {
   return (
     <div className="min-w-24 rounded-3xl border border-line bg-card px-6 py-4 text-center">

@@ -2,16 +2,15 @@ import type { ButtonHTMLAttributes } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "outline" | "danger";
-  isLoading?: boolean; // בזמן שליחה: ספינר + כפתור נעול, כדי שלא ילחצו פעמיים
+  isLoading?: boolean;
 }
 
 const variants = {
   primary: "bg-gradient-to-l from-berry to-sun text-ink hover:opacity-90",
   outline: "border border-line text-cream hover:border-rose",
-  danger: "bg-rose text-ink hover:opacity-90", // מחיקה
+  danger: "bg-rose text-ink hover:opacity-90",
 };
 
-// כפתור אחד לכל האתר. כל שאר ה־props (type, onClick...) עוברים ישר ל־<button>
 function Button({ variant = "primary", isLoading = false, disabled, className = "", children, ...rest }: ButtonProps) {
   return (
     <button

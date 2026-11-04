@@ -10,7 +10,6 @@ import {
   workStatusLabels,
 } from "../../utils/statusLabels";
 
-// אפשרויות המיון. כל אחת = שדה + כיוון, ונשמרת כמחרוזת אחת ב־select (למשל "cost-asc")
 const SORT_OPTIONS = [
   { value: "shootDate-desc", label: "תאריך צילום (החדש קודם)" },
   { value: "shootDate-asc", label: "תאריך צילום (הישן קודם)" },
@@ -21,20 +20,18 @@ const SORT_OPTIONS = [
 ] as const;
 
 interface ProjectFiltersProps {
-  filters: Filters; // הסינונים הנוכחיים (מגיעים מהכתובת)
+  filters: Filters;
   packages: Package[];
-  onChange: (changes: Partial<Filters>) => void; // הדף מעדכן את הכתובת
+  onChange: (changes: Partial<Filters>) => void;
 }
 
-// שורת החיפוש, 4 הסינונים והמיון. הקומפוננטה לא שומרת סינונים בעצמה – רק מדווחת לדף
 function ProjectFilters({ filters, packages, onChange }: ProjectFiltersProps) {
-  // החיפוש: הטקסט מתעדכן מיד בשדה, אבל נשלח לשרת רק 300ms אחרי שמפסיקים להקליד (debounce)
   const [searchText, setSearchText] = useState(filters.search ?? "");
 
   useEffect(() => {
-    if (searchText === (filters.search ?? "")) return; // אין שינוי – לא שולחים
+    if (searchText === (filters.search ?? "")) return;
     const timer = setTimeout(() => onChange({ search: searchText || undefined }), 300);
-    return () => clearTimeout(timer); // הוקלדה עוד אות לפני 300ms → מבטלים ומתחילים לספור מחדש
+    return () => clearTimeout(timer);
   }, [searchText, filters.search, onChange]);
 
   const sortValue = `${filters.sortBy ?? "shootDate"}-${filters.sortDir ?? "desc"}`;
@@ -87,11 +84,10 @@ interface FilterSelectProps {
   label: string;
   value: string;
   onChange: (value: string) => void;
-  allOption?: boolean; // להוסיף "הכל" בראש הרשימה (בכל הסינונים חוץ מהמיון)
+  allOption?: boolean;
   children: ReactNode;
 }
 
-// select אחד עם תווית. ערך ריק ("") = "הכל" = בלי סינון
 function FilterSelect({ label, value, onChange, allOption = true, children }: FilterSelectProps) {
   return (
     <label className="block">

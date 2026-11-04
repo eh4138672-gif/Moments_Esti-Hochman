@@ -19,7 +19,6 @@ import EmptyState from "../../components/ui/EmptyState";
 import { Skeleton } from "../../components/ui/Loader";
 import { TrashIcon } from "../../components/ui/icons";
 
-// /admin/gallery – העלאת תמונות לגלריה הציבורית ומחיקה
 function AdminGalleryPage() {
   const { data: items, isPending, isError, error, refetch } = useGallery();
   const deleteMutation = useDeleteGalleryItem();
@@ -92,7 +91,6 @@ function AdminGalleryPage() {
   );
 }
 
-// טופס ההעלאה: קובץ + כותרת + קטגוריה
 function UploadForm() {
   const upload = useUploadGalleryItem();
   const { showToast } = useToast();
@@ -106,7 +104,6 @@ function UploadForm() {
     formState: { errors, isSubmitting },
   } = useForm<GalleryFormValues>({ resolver: zodResolver(gallerySchema), defaultValues: { title: "" } });
 
-  // תצוגה מקדימה של הקובץ שנבחר (כתובת זמנית, משתחררת כשהקובץ מתחלף)
   const file = watch("file");
   const [preview, setPreview] = useState<string | null>(null);
   useEffect(() => {
@@ -120,7 +117,7 @@ function UploadForm() {
     try {
       await upload.mutateAsync(values);
       showToast(`"${values.title}" נוספה לגלריה`);
-      reset({ title: "" }); // מנקים את הטופס להעלאה הבאה
+      reset({ title: "" });
     } catch (error) {
       applyServerErrors(error, setError);
     }
@@ -129,7 +126,6 @@ function UploadForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="grid gap-6 rounded-[2rem] border border-line bg-card p-6 md:grid-cols-[16rem_1fr] md:p-8">
       <div>
-        {/* Controller – הקובץ הוא לא input רגיל של טקסט, אז מחברים אותו לטופס ידנית */}
         <Controller
           control={control}
           name="file"

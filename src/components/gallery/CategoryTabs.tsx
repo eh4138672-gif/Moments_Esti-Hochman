@@ -3,11 +3,10 @@ import { CATEGORIES, categoryLabels } from "../../utils/statusLabels";
 import Pill from "../ui/Pill";
 
 interface CategoryTabsProps {
-  value?: Category; // undefined = "הכל"
+  value?: Category;
   onChange: (category?: Category) => void;
 }
 
-// שורת הטאבים של הגלריה – בנויה מ־Pill
 function CategoryTabs({ value, onChange }: CategoryTabsProps) {
   return (
     <div className="flex flex-wrap justify-center gap-2">

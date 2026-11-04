@@ -5,12 +5,11 @@ import CameraSlideshow from "./CameraSlideshow";
 
 interface PackageCardProps {
   pkg: Package;
-  showFeatures?: boolean; // בדף החבילות – גם רשימת "מה כלול" וכפתור הרשמה
+  showFeatures?: boolean;
 }
 
-// כרטיס חבילה – בדף הבית (מקוצר) ובדף החבילות (מלא)
 function PackageCard({ pkg, showFeatures = false }: PackageCardProps) {
-  const isPremium = pkg.includesAlbum; // הפרימיום מודגש: מסגרת ורודה + "הכי משתלם"
+  const isPremium = pkg.includesAlbum;
 
   return (
     <article className={`relative flex flex-col overflow-hidden rounded-[2rem] border bg-card ${isPremium ? "border-rose/60" : "border-line"}`}>
@@ -20,7 +19,6 @@ function PackageCard({ pkg, showFeatures = false }: PackageCardProps) {
         </span>
       )}
 
-      {/* אם לחבילה יש תמונה בשרת – מציגים אותה. אחרת: מצלמה עם תמונות מתחלפות מהגלריה */}
       {pkg.imageUrl ? (
         <img src={pkg.imageUrl} alt={pkg.name} className="aspect-[3/2] w-full object-cover" />
       ) : (

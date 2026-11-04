@@ -16,14 +16,11 @@ import { PencilIcon, TrashIcon } from "../ui/icons";
 interface ProjectsTableProps {
   projects: Project[];
   onStatusChange: (id: number, data: ProjectStatusInput) => void;
-  onDelete: (project: Project) => void; // הדף פותח את חלון האישור
+  onDelete: (project: Project) => void;
 }
 
-// טבלת כל הפרויקטים. מקבלת את הרשימה מבחוץ (props) – לא מביאה מידע בעצמה
 function ProjectsTable({ projects, onStatusChange, onDelete }: ProjectsTableProps) {
   return (
-    // overflow-x-auto – בטלפון אפשר לגלול את הטבלה הצידה במקום שהדף ייחתך.
-    // relative – כדי שגם אלמנטים במיקום absolute בתוך הטבלה (sr-only) יישארו בתוך הגלילה ולא "יברחו" לדף
     <div className="relative overflow-x-auto rounded-[2rem] border border-line bg-card">
       <table className="w-full min-w-[56rem] text-right">
         <thead className="bg-line/40 text-sm text-muted">
@@ -62,7 +59,6 @@ function ProjectsTable({ projects, onStatusChange, onDelete }: ProjectsTableProp
                 />
               </td>
               <td className="px-4 py-4">
-                {/* חבילת בסיס – אין אלבום, אז אין מה לעדכן: תגית רגילה בלי לחיצה */}
                 {project.includesAlbum ? (
                   <QuickStatus
                     current={project.albumStatus}
@@ -108,11 +104,10 @@ interface QuickStatusProps {
   current: string;
   steps: string[];
   labels: Record<string, string>;
-  badge: (onClick: () => void) => React.ReactNode; // התגית עצמה – לחיצה עליה פותחת את הרשימה
+  badge: (onClick: () => void) => React.ReactNode;
   onSelect: (status: string) => void;
 }
 
-// עדכון סטטוס מהיר: לוחצים על התגית → נפתחת רשימה קטנה → בוחרים → נשלח לשרת
 function QuickStatus({ current, steps, labels, badge, onSelect }: QuickStatusProps) {
   const [open, setOpen] = useState(false);
 
@@ -126,7 +121,6 @@ function QuickStatus({ current, steps, labels, badge, onSelect }: QuickStatusPro
       {badge(() => setOpen(!open))}
       {open && (
         <>
-          {/* שכבה שקופה על כל המסך: לחיצה מחוץ לרשימה סוגרת אותה */}
           <div className="fixed inset-0 z-20" onClick={() => setOpen(false)} />
           <ul className="absolute start-0 top-full z-30 mt-2 min-w-44 overflow-hidden rounded-2xl border border-line bg-card py-1 shadow-xl shadow-black/40">
             {steps.map((step) => (

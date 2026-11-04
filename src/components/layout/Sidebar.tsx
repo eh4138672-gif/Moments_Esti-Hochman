@@ -4,14 +4,11 @@ import { GridIcon, ImageIcon, LogOutIcon, PlusCircleIcon } from "../ui/icons";
 import { useAuth } from "../../hooks/useAuth";
 import Logo from "./Logo";
 
-// קישור בסרגל הצד: הפעיל מקבל רקע בגרדיאנט עדין, כמו בהדמיה
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   `flex items-center gap-3 rounded-2xl px-4 py-3 transition ${
     isActive ? "bg-gradient-to-l from-sun/20 to-berry/20 font-bold text-cream" : "text-cream/80 hover:bg-card"
   }`;
 
-// סרגל הצד הקבוע של ממשק הניהול.
-// בטלפון: רק פס עליון עם לוגו וכפתור ☰ – התפריט נפתח בלחיצה. במחשב (md ומעלה): תמיד פתוח בצד
 function Sidebar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -22,7 +19,7 @@ function Sidebar() {
     navigate("/");
   }
 
-  const closeMenu = () => setMenuOpen(false); // אחרי בחירת קישור בטלפון – סוגרים את התפריט
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <aside className="flex flex-col gap-6 border-b border-line bg-[#201f25] p-4 md:sticky md:top-0 md:h-screen md:w-64 md:shrink-0 md:gap-8 md:border-b-0 md:border-s md:p-6">
@@ -39,9 +36,7 @@ function Sidebar() {
         </button>
       </div>
 
-      {/* hidden בטלפון כשהתפריט סגור; md:flex – במחשב תמיד מוצג */}
       <nav className={`flex-col gap-1 ${menuOpen ? "flex" : "hidden"} md:flex`}>
-        {/* end – אחרת "כל הפרויקטים" יסומן כפעיל גם ב־/admin/projects/new */}
         <NavLink to="/admin/projects" end className={linkClass} onClick={closeMenu}>
           <GridIcon /> כל הפרויקטים
         </NavLink>

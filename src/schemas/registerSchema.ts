@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// אותם כללים כמו בשרת, ועוד "אימות סיסמה" שנבדק רק כאן ולא נשלח לשרת
 export const registerSchema = z
   .object({
     fullName: z.string().trim().min(2, "לפחות 2 תווים").max(60, "עד 60 תווים"),
@@ -12,7 +11,6 @@ export const registerSchema = z
     password: z.string().min(8, "הסיסמה חייבת להכיל לפחות 8 תווים").max(72, "עד 72 תווים"),
     confirmPassword: z.string().min(1, "שדה חובה"),
   })
-  // refine – בדיקה שמשווה בין שני שדות. path קובע ליד איזה שדה תופיע ההודעה
   .refine((data) => data.password === data.confirmPassword, {
     message: "הסיסמאות לא תואמות",
     path: ["confirmPassword"],

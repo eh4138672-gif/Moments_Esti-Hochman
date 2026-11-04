@@ -16,8 +16,6 @@ import ConfirmDialog from "../../components/ui/ConfirmDialog";
 
 const SORT_FIELDS = ["shootDate", "cost", "clientName", "createdAt"];
 
-// קורא את הסינונים מהכתובת: ?category=Family&sortBy=cost → { category: "Family", sortBy: "cost" }
-// ערך לא מוכר (מישהו שינה את הכתובת ידנית) פשוט לא נכנס
 function readFilters(params: URLSearchParams): Filters {
   const pick = <T extends string>(key: string, allowed: readonly string[]) => {
     const value = params.get(key);
@@ -36,45 +34,36 @@ function readFilters(params: URLSearchParams): Filters {
   };
 }
 
-// /admin/projects – כל הפרויקטים
 function AdminProjectsPage() {
-  // ---- 1. הסינונים נשמרים בכתובת (URL) ולא ב־useState ----
-  // כך "חזרה" בדפדפן עובד, ורענון הדף לא מאבד את הסינון
   const [searchParams, setSearchParams] = useSearchParams();
   const filters = readFilters(searchParams);
 
-  // useCallback – אותה פונקציה בכל רינדור (ה־debounce של החיפוש תלוי בה)
   const updateFilters = useCallback(
     (changes: Partial<Filters>) => {
-      // מתחילים מהכתובת שבאמת מוצגת עכשיו (window.location) – כך שני שינויים רצופים
-      // לא "דורסים" אחד את השני (ה־searchParams של React Router מתעדכן רק ברינדור הבא)
       const next = new URLSearchParams(window.location.search);
       Object.entries(changes).forEach(([key, value]) => {
-        if (value === undefined || value === "") next.delete(key); // "הכל" = מוחקים מהכתובת
+        if (value === undefined || value === "") next.delete(key);
         else next.set(key, String(value));
       });
-      setSearchParams(next, { replace: true }); // replace – לא מוסיפים צעד להיסטוריה על כל אות בחיפוש
+      setSearchParams(next, { replace: true });
     },
     [setSearchParams],
   );
 
-  // ---- 2. הבאת המידע ----
-  const filtered = useProjects(filters); // לטבלה – עם הסינונים
-  const all = useProjects(); // למונים – תמיד כל הפרויקטים (בלי סינון אין בקשה נוספת: אותו מפתח במטמון)
+  const filtered = useProjects(filters);
+  const all = useProjects();
   const { data: packages = [] } = usePackages();
 
-  // ---- 3. פעולות ----
   const updateStatus = useUpdateProjectStatus();
   const deleteMutation = useDeleteProject();
   const { showToast } = useToast();
-  const [toDelete, setToDelete] = useState<Project | null>(null); // הפרויקט שמחכה לאישור מחיקה
+  const [toDelete, setToDelete] = useState<Project | null>(null);
 
   function changeStatus(id: number, data: ProjectStatusInput) {
     updateStatus.mutate(
       { id, data },
       {
         onSuccess: () => showToast("הסטטוס עודכן"),
-        // למשל: ניסיון לשנות אלבום בחבילת בסיס – השרת מחזיר 400 עם הסבר
         onError: (error) => showToast(getApiError(error).title, "error"),
       },
     );
@@ -91,7 +80,6 @@ function AdminProjectsPage() {
     });
   }
 
-  // ---- 4. המונים – מחושבים מהרשימה המלאה ----
   const allProjects = all.data ?? [];
   const editingCount = allProjects.filter((p) => p.workStatus === "Editing").length;
   const albumsInProgress = allProjects.filter((p) => p.albumStatus === "SelectingPhotos" || p.albumStatus === "Designing").length;
@@ -159,7 +147,6 @@ function AdminProjectsPage() {
   );
 }
 
-// קופסת מונה: מספר גדול בצבע + תווית
 function Counter({ value, label, color }: { value: number; label: string; color: string }) {
   return (
     <div className="rounded-3xl border border-line bg-card px-4 py-4 md:rounded-[2rem] md:px-6 md:py-5">

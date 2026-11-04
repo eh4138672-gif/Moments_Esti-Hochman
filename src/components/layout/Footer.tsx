@@ -26,7 +26,7 @@ function Footer() {
 
         <div className="flex flex-col gap-2 text-sm text-muted">
           <h4 className="mb-1 font-bold text-cream">צור קשר</h4>
-          {/* TODO: להחליף בפרטי הסטודיו האמיתיים */}
+
           <span>053-4138672</span>
           <span>eh4138672@gmail.com</span>
         </div>

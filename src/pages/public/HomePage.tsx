@@ -8,7 +8,6 @@ import PhotoStack from "../../components/gallery/PhotoStack";
 import StatusBadge from "../../components/ui/StatusBadge";
 import { Skeleton } from "../../components/ui/Loader";
 
-// ארבעת השלבים של "איך זה עובד" – טקסט קבוע, לא מהשרת
 const STEPS = [
   { title: "כניסה לאתר", text: "עמוד בית פתוח לכולם, בלי צורך בהתחברות." },
   { title: "גלריית עבודות", text: "תמונות לפי קטגוריות – תינוקות, גיל שנה, חלאקה, משפחה ואלבומים." },
@@ -17,11 +16,9 @@ const STEPS = [
 ];
 
 const gradientText = "bg-gradient-to-l from-sky via-rose to-sun bg-clip-text text-transparent";
-// דף הבית – פתוח לכולם
 function HomePage() {
-  const { data: photos, isPending: photosLoading } = useGallery(); // כל הגלריה (החדשות קודם)
+  const { data: photos, isPending: photosLoading } = useGallery();
 
-  // עבודה אחת מכל קטגוריה – החדשה ביותר בה. קטגוריה בלי תמונות פשוט לא מוצגת
   const featured = CATEGORIES.map((category) => photos?.find((photo) => photo.category === category)).filter(
     (photo): photo is GalleryItem => photo !== undefined,
   );
@@ -29,8 +26,6 @@ function HomePage() {
 
   return (
     <div className="space-y-28">
-      {/* ---------- 1. Hero ---------- */}
-      {/* טקסט מימין, ערימת תמונות משמאל (במסך רחב). בטלפון – רק הטקסט */}
       <section className="relative -mt-4 grid items-center overflow-hidden rounded-[2.5rem] border border-line bg-gradient-to-br from-sun/15 via-rose/10 to-violet/20 md:grid-cols-2">
         <div className="relative px-8 py-20 md:py-28 md:ps-14">
           <span className="rounded-full border border-cream/30 px-4 py-1.5 text-sm">סטודיו לצילום ילדים ומשפחה</span>
@@ -57,13 +52,11 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ---------- 2. עבודות נבחרות מהגלריה ---------- */}
       <section className="text-center">
         <h2 className="font-display text-5xl font-extrabold md:text-7xl">PORTFOLIO</h2>
         <p className="bg-gradient-to-l from-berry to-rose bg-clip-text font-display text-5xl font-extrabold text-transparent md:text-7xl">MOMENTS</p>
         <p className="mx-auto mt-4 max-w-lg text-muted">גלריה פתוחה לכולם – ללא צורך בהתחברות. עיינו לפי קטגוריות: תינוקות, גיל שנה, חלאקה, משפחה ואלבומים.</p>
 
-        {/* flex + justify-center: גם אם יש פחות מ־5 קטגוריות עם תמונות, הן נשארות במרכז */}
         <div className="mt-12 flex flex-wrap justify-center gap-4">
           {photosLoading
             ? Array.from({ length: 5 }, (_, i) => <Skeleton key={i} className="h-80 w-[calc(50%-0.5rem)] md:w-[calc(20%-0.8rem)]" />)
@@ -71,7 +64,6 @@ function HomePage() {
                 <Link
                   key={photo.id}
                   to={`/gallery?category=${photo.category}`}
-                  // מלבן עם פינות מעוגלות. במעבר עכבר – קופץ קצת למעלה והתמונה מתקרבת
                   className="group relative h-80 w-[calc(50%-0.5rem)] overflow-hidden rounded-3xl bg-gradient-to-br from-sun/30 via-rose/20 to-violet/30 transition duration-500 hover:-translate-y-2 md:w-[calc(20%-0.8rem)]"
                 >
                   <img src={photo.url} alt={photo.title} className="size-full object-cover transition duration-500 group-hover:scale-105" />
@@ -87,7 +79,6 @@ function HomePage() {
         </Link>
       </section>
 
-      {/* ---------- 3. איך זה עובד ---------- */}
       <section>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -110,7 +101,6 @@ function HomePage() {
         </ol>
       </section>
 
-      {/* ---------- 4. החבילות ---------- */}
       <section className="text-center">
         <h2 className="font-display text-5xl font-extrabold md:text-6xl">PACKAGES</h2>
         <p className="mt-3 text-muted">שתי חבילות מרכזיות. המנהלת מגדירה אותן, והלקוח בוחר.</p>
@@ -127,7 +117,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ---------- 5. האזור האישי ---------- */}
       <section className="grid items-center gap-10 md:grid-cols-2">
         <div>
           <p className="font-bold text-violet">האזור האישי</p>
@@ -138,7 +127,6 @@ function HomePage() {
           </Link>
         </div>
 
-        {/* כרטיס דוגמה – רק להמחשה, לא מהשרת */}
         <div className="rounded-[2rem] border border-line bg-card p-8">
           <div className="flex items-center gap-4">
             <span className="size-14 rounded-2xl bg-gradient-to-br from-sun/40 via-rose/30 to-violet/40" />

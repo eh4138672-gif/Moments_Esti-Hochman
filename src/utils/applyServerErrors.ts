@@ -1,12 +1,6 @@
 import type { FieldValues, Path, UseFormSetError } from "react-hook-form";
 import { getApiError } from "./apiError";
 
-/**
- * מעביר שגיאה מהשרת לטופס של react-hook-form:
- * - 400 עם errors → כל הודעה נכנסת ליד השדה שלה (המפתח בשרת = שם השדה בטופס)
- * - 409 (אימייל כבר רשום) → ליד השדה conflictField, אם הועבר
- * - כל השאר → הודעה כללית ב־errors.root (מציגים אותה מעל כפתור השליחה)
- */
 export function applyServerErrors<T extends FieldValues>(
   error: unknown,
   setError: UseFormSetError<T>,

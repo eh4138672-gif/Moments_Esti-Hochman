@@ -2,19 +2,17 @@ import { useRef, useState, type DragEvent } from "react";
 import { ALLOWED_IMAGE_TYPES } from "../../utils/validateImage";
 
 interface DropZoneProps {
-  multiple?: boolean; // כמה קבצים בבת אחת (תמונות פרויקט) או אחד (גלריה)
+  multiple?: boolean;
   onFiles: (files: File[]) => void;
   disabled?: boolean;
 }
 
-// אזור "גררו תמונות לכאן או לחצו לבחירת קבצים".
-// מאחוריו יש <input type="file"> מוסתר – לחיצה על האזור פותחת אותו
 function DropZone({ multiple = false, onFiles, disabled = false }: DropZoneProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
 
   function handleDrop(event: DragEvent) {
-    event.preventDefault(); // בלי זה הדפדפן פשוט פותח את התמונה בלשונית
+    event.preventDefault();
     setIsDragging(false);
     if (disabled) return;
     const files = Array.from(event.dataTransfer.files);
@@ -27,7 +25,7 @@ function DropZone({ multiple = false, onFiles, disabled = false }: DropZoneProps
       disabled={disabled}
       onClick={() => inputRef.current?.click()}
       onDragOver={(e) => {
-        e.preventDefault(); // מאפשר "לשחרר" קבצים על האזור
+        e.preventDefault();
         setIsDragging(true);
       }}
       onDragLeave={() => setIsDragging(false)}
@@ -47,7 +45,7 @@ function DropZone({ multiple = false, onFiles, disabled = false }: DropZoneProps
         accept={ALLOWED_IMAGE_TYPES.join(",")}
         onChange={(e) => {
           onFiles(Array.from(e.target.files ?? []));
-          e.target.value = ""; // כדי שאפשר יהיה לבחור שוב את אותו קובץ
+          e.target.value = "";
         }}
       />
     </button>

@@ -12,7 +12,7 @@ interface RegisterFormProps {
 }
 
 function RegisterForm({ onSuccess }: RegisterFormProps) {
-  const { register: registerUser } = useAuth(); // שם אחר, כי register תפוס ע"י react-hook-form
+  const { register: registerUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -21,13 +21,11 @@ function RegisterForm({ onSuccess }: RegisterFormProps) {
   } = useForm<RegisterFormValues>({ resolver: zodResolver(registerSchema) });
 
   async function onSubmit(values: RegisterFormValues) {
-    // confirmPassword נבדק רק אצלנו – לא שולחים אותו לשרת
     const { fullName, email, phone, password } = values;
     try {
       const user = await registerUser({ fullName, email, phone, password });
       onSuccess(user);
     } catch (error) {
-      // 409 = האימייל כבר רשום → ההודעה מופיעה ליד שדה האימייל
       applyServerErrors(error, setError, "email");
     }
   }

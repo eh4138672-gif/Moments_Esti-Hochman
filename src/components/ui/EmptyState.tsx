@@ -1,12 +1,11 @@
 import type { ReactNode } from "react";
 
 interface EmptyStateProps {
-  title: string; // למשל "אין עדיין פרויקטים"
+  title: string;
   text?: string;
-  action?: ReactNode; // כפתור או קישור אופציונלי, למשל "לחבילות הצילום"
+  action?: ReactNode;
 }
 
-// מה מציגים כשהרשימה ריקה – במקום דף ריק שנראה כמו תקלה
 function EmptyState({ title, text, action }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center gap-3 rounded-3xl border border-dashed border-line px-6 py-14 text-center">

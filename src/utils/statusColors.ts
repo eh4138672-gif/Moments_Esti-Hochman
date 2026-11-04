@@ -1,6 +1,5 @@
 import type { AlbumStatus, Category, WorkStatus } from "../types/project";
 
-// צבע הטקסט של כל קטגוריה (בכרטיסי הפרויקטים ובגלריה)
 export const categoryColors: Record<Category, string> = {
   Babies: "text-rose",
   FirstBirthday: "text-sun",
@@ -9,7 +8,6 @@ export const categoryColors: Record<Category, string> = {
   Albums: "text-berry",
 };
 
-// צבע לכל שלב, כמו בהדמיה. מחרוזות מלאות (ולא `border-${color}`) כדי ש־Tailwind יזהה אותן
 export const workStatusColors: Record<WorkStatus, string> = {
   Photographed: "border-rose text-rose",
   Editing: "border-sun text-sun",
